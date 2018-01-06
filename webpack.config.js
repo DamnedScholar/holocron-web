@@ -20,7 +20,7 @@ const outputPath = path.join(process.cwd(), 'dist')
 const babel = () => () => ({
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.jsx?$/, exclude: /node_modules\/(?!react-voice-components)/, loader: 'babel-loader' },
     ],
   },
 })
@@ -35,7 +35,7 @@ const assets = () => () => ({
 
 const resolveModules = modules => () => ({
   resolve: {
-    modules: [].concat(modules, ['node_modules']),
+    modules: [].concat(modules, ['node_modules', 'semantic']),
   },
 })
 
@@ -58,6 +58,10 @@ const config = createConfig([
       filename: 'index.html',
       template: path.join(process.cwd(), 'public/index.html'),
     }),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+    })
   ]),
   happypack([
     babel(),
