@@ -8,7 +8,7 @@ import fuzzy from 'fuzzy'
 
 // import Player from '../../molecules/VideoPlayer/player'
 
-import styles from 'css-loader?modules!./index.css'
+import 'style-loader!css-loader?modules!./index.css'
 
 import semanticJS from 'semantic-ui/dist/semantic.min.js'
 // import 'style-loader!css-loader?modules!semantic-ui/dist/semantic.css'
@@ -225,7 +225,13 @@ class Holocron extends Component {
   }
 
   navigate(dest) {
-    let slug = dest
+    let slug
+    console.log(dest)
+    if (typeof dest != String)
+      slug = dest.target.getAttribute('slug')
+    else
+      slug = dest
+
     if (slug === "title") {
       console.log("Activating the title view")
       this.setState({
@@ -267,7 +273,7 @@ class Holocron extends Component {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
         </Helmet>
 
-        <Container className="vertical">
+        <Container>
           <TitleView videos={this.videos} navigate={this.navigate}
             {...this.state} />
           <Recorder videos={this.videos} navigate={this.navigate}
