@@ -25,7 +25,8 @@ class TitleView extends Component {
     let titles = []
     videos.forEach( (vid, i, all) => {
       titles.push(
-        <Menu.Item key={vid.key} slug={vid.key} name={vid.name} onClick={this.props.navigate}>
+        <Menu.Item key={vid.key} slug={vid.key} name={vid.name} onClick={this.props.navigate}
+          active={(activeVideo.name == vid.name)} >
           {vid.name}
         </Menu.Item>
       )
