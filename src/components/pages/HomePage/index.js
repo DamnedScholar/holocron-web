@@ -1,14 +1,22 @@
 // https://github.com/diegohaz/arc/wiki/Atomic-Design
 import React, { Component } from 'react'
 import { VoicePlayer, VoiceRecognition } from 'babel-loader!react-voice-components'
+import { Helmet } from 'react-helmet'
 import ReactPlayer from 'react-player'
 import { Button, Container, Icon, Loader, Menu } from "semantic-ui-react"
-import semanticJS from 'semantic-ui/dist/semantic.min.js'
-import semanticCSS from 'style-loader!css-loader?modules!semantic-ui/dist/semantic.css'
+import fuzzy from 'fuzzy'
 
 // import Player from '../../molecules/VideoPlayer/player'
 
 import styles from 'css-loader?modules!./index.css'
+
+import semanticJS from 'semantic-ui/dist/semantic.min.js'
+// import 'style-loader!css-loader?modules!semantic-ui/dist/semantic.css'
+// import 'style-loader!css-loader?modules!semantic-ui/dist/components/button.min.css'
+// import 'style-loader!css-loader?modules!semantic-ui/dist/components/container.min.css'
+// import 'style-loader!css-loader?modules!semantic-ui/dist/components/icon.min.css'
+// import 'style-loader!css-loader?modules!semantic-ui/dist/components/loader.min.css'
+// import 'style-loader!css-loader?modules!semantic-ui/dist/components/menu.min.css'
 
 class TitleView extends Component {
   render() {
@@ -40,11 +48,9 @@ class Player extends Component {
     else
       className = "hidden"
 
-    url = "https://www.youtube.com/watch?v=lkavFRoVaBM"
-
     console.log("Loading video: " + url)
     return(
-      <ReactPlayer url={url} className={className} controls
+      <ReactPlayer url={url} className={className} controls playing
         onReady={() => console.log('onReady')}
         onStart={() => console.log('onStart')}
         onError={() => console.log('onError')}
@@ -95,7 +101,6 @@ class Recorder extends Component {
 
     this.props.videos.forEach( (vid, i, all) => {
       nameList.push(vid.name)
-      nameList.push(vid.key)
     })
     grammar = '#JSGF V1.0; grammar videos; public <video> = ' + nameList.join(' | ') + ' ;'
 
@@ -115,7 +120,18 @@ class Recorder extends Component {
           }}
           onResult={(evt) => {
             console.log(evt)
-            this.forceUpdate()
+            let result = null
+            result = fuzzy.filter(evt.finalTranscript, nameList)[0]
+
+            if (result) {
+              console.log("I think you said " + result.string)
+            }
+            else {
+              console.log("You have to say something on the list.")
+            }
+
+            let dest = this.props.videos.filter( (v) => v.name == result.string )[0].key
+            this.props.navigate(dest)
           }}
           onEnd={(evt) => {
             console.log(evt)
@@ -180,15 +196,16 @@ class Holocron extends Component {
         key: 'AIzaSyAeeVWvyfGbzZd5dBrkkAPe7IAUu6HcqRo'
     }
     let videos = []
+    let playlist = {items: require('./playlist.json')}
 
     // Note to future self: Google API calls have to be aimed at `www.googleapis.com`, not `googleapis.com`.
-    return fetch('https://googleapis.com/youtube/v3/playlistItems?part=' + c.part + '&playlistId=' + c.playlistId + '&key=' + c.key, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        }
-    }).then( (response) => response.json()).then( (playlist) => {
+    // return fetch('https://googleapis.com/youtube/v3/playlistItems?part=' + c.part + '&playlistId=' + c.playlistId + '&key=' + c.key, {
+    //     method: 'GET',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json',
+    //     }
+    // }).then( (response) => response.json()).then( (playlist) => {
       playlist.items.map( (v,i,a) => {
         videos.push({
           name: v.snippet.title,
@@ -201,13 +218,13 @@ class Holocron extends Component {
         isLoading: false,
         videos: videos
       })
-    }).catch( (error) => {
-      console.error(error)
-    })
+    // }).catch( (error) => {
+    //   console.error(error)
+    // })
   }
 
-  navigate(evt) {
-    let slug = evt.target.attributes.getNamedItem("slug").value
+  navigate(dest) {
+    let slug = dest
     if (slug === "title") {
       console.log("Activating the title view")
       this.setState({
@@ -226,7 +243,13 @@ class Holocron extends Component {
   render () {
     if (this.state.isLoading) {
       return (
-        <Loader />
+        <Container>
+          <Helmet>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+          </Helmet>
+
+          <Loader />
+        </Container>
       );
     }
 
@@ -238,14 +261,21 @@ class Holocron extends Component {
       activeVideo = {file: null, name: null, key: null}
 
     return (
-      <div>
-        <TitleView videos={this.videos} navigate={this.navigate}
-        {...this.state} />
+      <Container>
+        <Helmet>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+        </Helmet>
+
+        <Container className="vertical">
+          <TitleView videos={this.videos} navigate={this.navigate}
+            {...this.state} />
+          <Recorder videos={this.videos} navigate={this.navigate}
+            {...this.state} />
+        </Container>
+
         <Player videos={this.videos} navigate={this.navigate}
-        {...this.state} />
-        <Recorder videos={this.videos} navigate={this.navigate}
-        {...this.state} />
-      </div>
+          {...this.state} />
+      </Container>
     )
   }
 }
