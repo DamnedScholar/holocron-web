@@ -1,7 +1,22 @@
-.open {
+body .holocron-app {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background: #000000 radial-gradient(ellipse at center, #5d0004 0%, #220a0a 100%);
+  padding: 150px 0;
+  color: white;
+}
+
+.ui.button.open {
   background-color: #20FF60;
 }
 
-.closed {
-  background-color: #AA0000;
+.ui.button.closed {
+  background-color: #CC0000;
+}
+
+.holocron-animation {
+  width: 450px;
+  position: fixed;
+  bottom: 0;
 }

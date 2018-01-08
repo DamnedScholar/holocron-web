@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const devServer = require('@webpack-blocks/dev-server2')
 const splitVendor = require('webpack-blocks-split-vendor')
 const happypack = require('webpack-blocks-happypack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const {
   addPlugins, createConfig, entryPoint, env, setOutput,
@@ -39,6 +40,29 @@ const resolveModules = modules => () => ({
   },
 })
 
+const css = () => () => ({
+  module: {
+    rules: [
+      // {
+      //   test: /\.css$/,
+      //   use: ExtractTextPlugin.extract({
+      //         fallback: 'style-loader',
+      //         use: [ 'css-loader' ]
+      //     })
+      // },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+    ]
+  },
+  // plugins: [
+  //       new ExtractTextPlugin({
+  //         filename: '[name].css'
+  //       })
+  //     ]
+})
+
 const config = createConfig([
   entryPoint({
     app: sourcePath,
@@ -68,7 +92,7 @@ const config = createConfig([
   ]),
   assets(),
   resolveModules(sourceDir),
-
+  css(),
   env('development', [
     devServer({
       contentBase: 'public',
@@ -83,7 +107,6 @@ const config = createConfig([
       new webpack.NamedModulesPlugin(),
     ]),
   ]),
-
   env('production', [
     splitVendor(),
     addPlugins([

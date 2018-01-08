@@ -6,9 +6,11 @@ import ReactPlayer from 'react-player'
 import { Button, Container, Icon, Loader, Menu } from "semantic-ui-react"
 import fuzzy from 'fuzzy'
 
+import Holocron from '../../molecules/Holocron/index'
+
 // import Player from '../../molecules/VideoPlayer/player'
 
-import 'style-loader!css-loader?modules!./index.css'
+import './index.css'
 
 import semanticJS from 'semantic-ui/dist/semantic.min.js'
 // import 'style-loader!css-loader?modules!semantic-ui/dist/semantic.css'
@@ -144,7 +146,7 @@ class Recorder extends Component {
   }
 }
 
-class Holocron extends Component {
+class HolocronApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -226,8 +228,8 @@ class Holocron extends Component {
 
   navigate(dest) {
     let slug
-    console.log(dest)
-    if (typeof dest != String)
+    console.log(typeof dest)
+    if (typeof dest != "string")
       slug = dest.target.getAttribute('slug')
     else
       slug = dest
@@ -260,15 +262,13 @@ class Holocron extends Component {
       );
     }
 
-    console.log("App component loaded. View: " + this.state.view)
-
     let activeVideo
     activeVideo = this.videos.filter(v => v.id === this.state.activeVideo)[0]
     if (!activeVideo)
       activeVideo = {file: null, name: null, key: null}
 
     return (
-      <Container>
+      <Container className="holocron-app">
         <Helmet>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
         </Helmet>
@@ -278,6 +278,7 @@ class Holocron extends Component {
             {...this.state} />
           <Recorder videos={this.videos} navigate={this.navigate}
             {...this.state} />
+          <Holocron className="holocron-animation" />
         </Container>
 
         <Player videos={this.videos} navigate={this.navigate}
@@ -289,7 +290,7 @@ class Holocron extends Component {
 
 const HomePage = () => {
   return (
-    <Holocron />
+    <HolocronApp />
   )
 }
 
