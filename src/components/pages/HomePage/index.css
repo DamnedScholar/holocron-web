@@ -21,3 +21,10 @@ body .app {
   position: fixed;
   bottom: 0;
 }
+
+.player {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

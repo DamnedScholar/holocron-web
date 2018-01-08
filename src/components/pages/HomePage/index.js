@@ -53,11 +53,13 @@ class Player extends Component {
 
     console.log("Loading video: " + url)
     return(
-      <ReactPlayer url={url} className={className} controls playing
-        onReady={() => console.log('onReady')}
-        onStart={() => console.log('onStart')}
-        onError={() => console.log('onError')}
-      />
+      <div className={className + " " + styles.player}>
+        <ReactPlayer url={url} controls playing
+          onReady={() => console.log('onReady')}
+          onStart={() => console.log('onStart')}
+          onError={() => console.log('onError')}
+        />
+      </div>
     )
   }
 }
