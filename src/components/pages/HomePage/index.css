@@ -5,6 +5,7 @@ body .app {
   background: #000000 radial-gradient(ellipse at center, #5d0004 0%, #220a0a 100%);
   padding: 150px 0;
   color: white;
+  display: flex;
 }
 
 .open {
