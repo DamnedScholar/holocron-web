@@ -1,4 +1,4 @@
-body .holocron-app {
+body .app {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
@@ -7,15 +7,15 @@ body .holocron-app {
   color: white;
 }
 
-.ui.button.open {
-  background-color: #20FF60;
+.open {
+  background-color: #20FF60 !important;
 }
 
-.ui.button.closed {
-  background-color: #CC0000;
+.closed {
+  background-color: #CC0000 !important;
 }
 
-.holocron-animation {
+.animation {
   width: 450px;
   position: fixed;
   bottom: 0;

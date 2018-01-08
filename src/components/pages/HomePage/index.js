@@ -10,7 +10,7 @@ import Holocron from '../../molecules/Holocron/index'
 
 // import Player from '../../molecules/VideoPlayer/player'
 
-import './index.css'
+import styles from 'style-loader!css-loader?modules!./index.css'
 
 import semanticJS from 'semantic-ui/dist/semantic.min.js'
 // import 'style-loader!css-loader?modules!semantic-ui/dist/semantic.css'
@@ -95,11 +95,11 @@ class Recorder extends Component {
     if (this.state.open) {
       console.log("We're currently recording.")
       label = "Recording Open"
-      className = "open"
+      className = styles.open
     }
     else {
       label = "Recording Closed"
-      className = "closed"
+      className = styles.closed
     }
 
     this.props.videos.forEach( (vid, i, all) => {
@@ -268,7 +268,7 @@ class HolocronApp extends Component {
       activeVideo = {file: null, name: null, key: null}
 
     return (
-      <Container className="holocron-app">
+      <Container className={styles.app}>
         <Helmet>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
         </Helmet>
@@ -278,7 +278,7 @@ class HolocronApp extends Component {
             {...this.state} />
           <Recorder videos={this.videos} navigate={this.navigate}
             {...this.state} />
-          <Holocron className="holocron-animation" />
+          <Holocron className={styles.animation} />
         </Container>
 
         <Player videos={this.videos} navigate={this.navigate}

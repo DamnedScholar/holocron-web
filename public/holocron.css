@@ -1,0 +1,245 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:300");
+/* Tetrahedron variables */
+/* Setup */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.environment {
+  -webkit-perspective: 800px;
+          perspective: 800px;
+}
+
+.holocron {
+  width: 300px;
+  height: 259.80762px;
+  margin: 0 auto;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  position: relative;
+  -webkit-transform: rotateX(45deg) rotateY(0deg) rotateZ(0deg);
+          transform: rotateX(45deg) rotateY(0deg) rotateZ(0deg);
+  -webkit-animation: spin 8s infinite linear;
+          animation: spin 8s infinite linear;
+}
+
+/* Triangle components */
+.face {
+  -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.face div {
+  position: absolute;
+}
+
+.face:nth-child(2) {
+  -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+  -webkit-transform: rotate(-60deg) rotateX(-109.5deg);
+          transform: rotate(-60deg) rotateX(-109.5deg);
+}
+
+.face:nth-child(3) {
+  -webkit-transform-origin: 100% 100%;
+          transform-origin: 100% 100%;
+  -webkit-transform: rotate(60deg) rotateX(-109.5deg);
+          transform: rotate(60deg) rotateX(-109.5deg);
+}
+
+.face:nth-child(4) {
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  -webkit-transform: rotate(180deg) rotateX(-109.5deg);
+          transform: rotate(180deg) rotateX(-109.5deg);
+}
+
+.face-inner {
+  -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+  width: 288px;
+  height: 249.41532px;
+  -webkit-transform: translateX(6px) translateY(7.19615px) translateZ(0);
+          transform: translateX(6px) translateY(7.19615px) translateZ(0);
+  background: rgba(235, 60, 45, 0.8);
+}
+
+/* Base triangles */
+.base {
+  -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+}
+.base.border {
+  width: 210px;
+  height: 181.86533px;
+  -webkit-transform: translateX(45px) translateY(50.97114px) translateZ(0);
+          transform: translateX(45px) translateY(50.97114px) translateZ(0);
+  background: rgba(0, 0, 0, 0.89);
+}
+.base.inner {
+  width: 135px;
+  height: 116.91343px;
+  -webkit-transform: translateX(82.5px) translateY(95.4471px) translateZ(0);
+          transform: translateX(82.5px) translateY(95.4471px) translateZ(0);
+  background: rgba(235, 60, 45, 0.9);
+}
+
+/* Corner triangles */
+.corner {
+  -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+  background: black;
+}
+.corner.med {
+  width: 50px;
+  height: 43.30127px;
+}
+.corner.med.top {
+  margin-left: -25px;
+}
+.corner.large {
+  width: 90px;
+  height: 77.94229px;
+}
+.corner.large.top {
+  margin-left: -45px;
+}
+.corner.left {
+  bottom: 0;
+  right: 0;
+}
+.corner.right {
+  bottom: 0;
+  left: 0;
+}
+.corner.top {
+  top: 0;
+  left: 50%;
+}
+
+/* Small inner triangles */
+.corner .inner {
+  -webkit-clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+  width: 25.98076px;
+  height: 22.5px;
+  background: rgba(235, 60, 45, 0.9);
+}
+.corner .inner.top {
+  top: 0;
+  left: 50%;
+  margin-left: -12.99038px;
+}
+.corner .inner.bottom {
+  bottom: 3px;
+  left: 50%;
+  margin-left: -12.99038px;
+  -webkit-transform: rotateZ(180deg);
+          transform: rotateZ(180deg);
+}
+.corner .inner.mid {
+  top: 25.98076px;
+}
+.corner .inner.left {
+  right: 12.99038px;
+}
+.corner .inner.right {
+  left: 12.99038px;
+}
+.corner .inner.flip {
+  left: 50%;
+  margin-left: -12.99038px;
+  -webkit-transform: rotateZ(180deg);
+          transform: rotateZ(180deg);
+}
+
+/* Angled lines */
+.line {
+  width: 300px;
+  background: black;
+}
+.line.bottom {
+  right: 0;
+  bottom: 0;
+  height: 25px;
+}
+.line.left {
+  height: 6px;
+  bottom: 50px;
+  right: -103px;
+  -webkit-transform: rotateZ(57deg);
+          transform: rotateZ(57deg);
+}
+.line.right {
+  height: 6px;
+  bottom: 50px;
+  left: -103px;
+  -webkit-transform: rotateZ(-57deg);
+          transform: rotateZ(-57deg);
+}
+
+/* Light source */
+.light-source {
+  width: 90px;
+  height: 77.94229px;
+  margin: 0 auto;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  position: absolute;
+  -webkit-transform: translateX(105px) translateY(127.5px) translateZ(69.35587px);
+          transform: translateX(105px) translateY(127.5px) translateZ(69.35587px);
+}
+.light-source .face {
+  background: rgba(255, 252, 0, 0.8);
+}
+
+/* Animation */
+@-webkit-keyframes spin {
+  50% {
+    -webkit-transform: rotateX(100deg) rotateY(10deg) rotateZ(180deg);
+            transform: rotateX(100deg) rotateY(10deg) rotateZ(180deg);
+  }
+  100% {
+    -webkit-transform: rotateX(45deg) rotateY(0deg) rotateZ(360deg);
+            transform: rotateX(45deg) rotateY(0deg) rotateZ(360deg);
+  }
+}
+@keyframes spin {
+  50% {
+    -webkit-transform: rotateX(100deg) rotateY(10deg) rotateZ(180deg);
+            transform: rotateX(100deg) rotateY(10deg) rotateZ(180deg);
+  }
+  100% {
+    -webkit-transform: rotateX(45deg) rotateY(0deg) rotateZ(360deg);
+            transform: rotateX(45deg) rotateY(0deg) rotateZ(360deg);
+  }
+}
+/* Text styles */
+.description {
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+}
+.description h1 {
+  font-family: 'Lato', 'Helvetica', monospace;
+  font-weight: 300;
+  letter-spacing: 3px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 40px #8f2f1e;
+}
+.description h1:after {
+  content: '';
+  position: absolute;
+  bottom: -.5em;
+  left: 0;
+  height: 1px;
+  width: 33%;
+  background: rgba(255, 255, 255, 0.1);
+}

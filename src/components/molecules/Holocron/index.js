@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet'
 
-import './holocron.css'
+import 'style-loader!css-loader?modules!./holocron.css'
 
 export default class Holocron extends Component {
   render() {
     return (
-      <div className="environment">
+      <div className={this.props.className + " environment"}>
+        <Helmet>
+          <link rel="stylesheet" href="./holocron.css"/>
+        </Helmet>
+
         <div className="holocron">
           <div className="face">
             <div className="face-inner">
