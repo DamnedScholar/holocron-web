@@ -1,5 +1,6 @@
 // https://github.com/diegohaz/arc/wiki/Webpack
 const path = require('path')
+const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const devServer = require('@webpack-blocks/dev-server2')
 const splitVendor = require('webpack-blocks-split-vendor')
