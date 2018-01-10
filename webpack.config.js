@@ -3,7 +3,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const devServer = require('@webpack-blocks/dev-server2')
 const splitVendor = require('webpack-blocks-split-vendor')
-const happypack = require('webpack-blocks-happypack')
+// const happypack = require('webpack-blocks-happypack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const {
@@ -43,24 +43,31 @@ const resolveModules = modules => () => ({
 const css = () => () => ({
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: ExtractTextPlugin.extract({
-      //         fallback: 'style-loader',
-      //         use: [ 'css-loader' ]
-      //     })
-      // },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [ 'css-loader' ]
+        })
       },
+      // {
+      //   test: /\.css$/,
+      //   use: [ 'style-loader', 'css-loader' ]
+      // },
     ]
   },
-  // plugins: [
-  //       new ExtractTextPlugin({
-  //         filename: '[name].css'
-  //       })
-  //     ]
+  plugins: [
+    new ExtractTextPlugin({
+      filename: '[name].css'
+    })
+  ]
+})
+
+const devServerConfig = () => () => ({
+  devServer: {
+    compress: true,
+    disableHostCheck: true,   // That solved it
+  }
 })
 
 const config = createConfig([
@@ -87,9 +94,10 @@ const config = createConfig([
         jQuery: "jquery"
     })
   ]),
-  happypack([
-    babel(),
-  ]),
+  babel(),
+  // happypack([
+  //   babel(),
+  // ]),
   assets(),
   resolveModules(sourceDir),
   // css(),
@@ -102,6 +110,7 @@ const config = createConfig([
       host,
       port,
     }),
+    devServerConfig(),
     sourceMaps(),
     addPlugins([
       new webpack.NamedModulesPlugin(),
