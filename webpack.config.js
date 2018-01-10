@@ -71,10 +71,13 @@ const devServerConfig = () => () => ({
 })
 
 const https = () => () => ({
-  https: {
-    key: fs.readFileSync("/etc/letsencrypt/live/nowhere.institute/privkey.pem"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/nowhere.institute/fullchain.pem"),
-    // ca: fs.readFileSync("/path/to/ca.pem"),
+  devServer: {
+    https: true
+    // {
+    //   key: fs.readFileSync("/etc/letsencrypt/live/nowhere.institute/privkey.pem"),
+    //   cert: fs.readFileSync("/etc/letsencrypt/live/nowhere.institute/fullchain.pem"),
+    //   ca: fs.readFileSync("/path/to/ca.pem"),
+    // }
   }
 })
 
@@ -108,6 +111,7 @@ const config = createConfig([
   // ]),
   assets(),
   resolveModules(sourceDir),
+  http(),
   // css(),
   env('development', [
     devServer({
