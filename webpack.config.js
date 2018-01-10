@@ -71,12 +71,11 @@ const devServerConfig = () => () => ({
 })
 
 const https = () => () => ({
-  https: true
-//   {
-//     key: fs.readFileSync("/path/to/server.key"),
-//     cert: fs.readFileSync("/path/to/server.crt"),
-//     ca: fs.readFileSync("/path/to/ca.pem"),
-// }
+  https: {
+    key: fs.readFileSync("/etc/letsencrypt/live/nowhere.institute/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/nowhere.institute/fullchain.pem"),
+    // ca: fs.readFileSync("/path/to/ca.pem"),
+  }
 })
 
 const config = createConfig([
