@@ -111,7 +111,7 @@ const config = createConfig([
   // ]),
   assets(),
   resolveModules(sourceDir),
-  http(),
+  https(),
   // css(),
   env('development', [
     devServer({
